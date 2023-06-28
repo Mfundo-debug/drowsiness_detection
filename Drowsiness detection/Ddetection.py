@@ -5,15 +5,15 @@ import numpy as np
 from pygame import mixer
 
 mixer.init()
-sound = mixer.Sound('C:/Users/didit/Downloads/open-cv/Drowsiness detection/alarm.wav')
+sound = mixer.Sound('C:/Users/didit/Downloads/open-cv/drowsiness_detection/Drowsiness detection/alarm.wav')
 
-face = cv2.CascadeClassifier('C:/Users/didit/Downloads/open-cv/Drowsiness detection/haar cascade files/haarcascade_frontalface_alt.xml')
-leye = cv2.CascadeClassifier('C:/Users/didit/Downloads/open-cv/Drowsiness detection/haar cascade files/haarcascade_lefteye_2splits.xml')
-reye = cv2.CascadeClassifier('C:/Users/didit/Downloads/open-cv/Drowsiness detection/haar cascade files/haarcascade_righteye_2splits.xml')
+face = cv2.CascadeClassifier('C:/Users/didit/Downloads/open-cv/drowsiness_detection/Drowsiness detection/haar cascade files/haarcascade_frontalface_alt.xml')
+leye = cv2.CascadeClassifier('C:/Users/didit/Downloads/open-cv/drowsiness_detection/Drowsiness detection/haar cascade files/haarcascade_lefteye_2splits.xml')
+reye = cv2.CascadeClassifier('C:/Users/didit/Downloads/open-cv/drowsiness_detection/Drowsiness detection/haar cascade files/haarcascade_righteye_2splits.xml')
 
 labels = ['Closed', 'Open']
 
-model = load_model('C:/Users/didit/Downloads/open-cv/Drowsiness detection/models/cnnCat2.h5')
+model = load_model('C:/Users/didit/Downloads/open-cv/drowsiness_detection/Drowsiness detection/models/cnnCat2.h5')
 path = os.getcwd()
 cap = cv2.VideoCapture(0)
 font = cv2.FONT_HERSHEY_COMPLEX_SMALL
@@ -82,7 +82,7 @@ while True:
 
         cv2.putText(frame, 'Score:' + str(score), (100, height-20), font, 1, (255, 255, 255), 1, cv2.LINE_AA)
 
-        if score > 15:
+        if score > 5:
             cv2.imwrite(os.path.join(path, 'image.jpg'), frame)
             try:
                 sound.play()
@@ -91,7 +91,7 @@ while True:
         else:
             sound.stop()
 
-        if thicc < 16:
+        if thicc < 4:
             thicc += 2
         else:
             thicc = thicc - 2
